@@ -10,7 +10,7 @@ public interface ScheduleRepository {
 
     ScheduleResponseDto saveSchedule(Schedule Schedule);
 
-    List<ScheduleResponseDto> findAllSchedules();
+    List<ScheduleResponseDto> findAllSchedules(String writer, boolean modifiedAtFilter);
 
     Schedule findScheduleByIdOrElseThrow(Long id);
 

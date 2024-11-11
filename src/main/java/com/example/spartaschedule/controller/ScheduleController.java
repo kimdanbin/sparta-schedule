@@ -29,9 +29,9 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules() {
+    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(@RequestParam(required = false) String writer, @RequestParam(required = false) boolean modifiedAtFilter) {
 
-        return new ResponseEntity<>(scheduleService.findAllSchedules(), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.findAllSchedules(writer, modifiedAtFilter), HttpStatus.OK);
     }
 
     // 선택 일정 조회

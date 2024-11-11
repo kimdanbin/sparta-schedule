@@ -34,12 +34,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     // 전체 일정 조회
     @Override
-    public List<ScheduleResponseDto> findAllSchedules() {
+    public List<ScheduleResponseDto> findAllSchedules(String writer, boolean modifiedAtFilter) {
 
-        List<ScheduleResponseDto> allSchedules = scheduleRepository.findAllSchedules();
+        List<ScheduleResponseDto> allSchedules = scheduleRepository.findAllSchedules(writer, modifiedAtFilter);
 
-        // 수정일 기준 내림차순으로 정렬
-        allSchedules.sort(Comparator.comparing(ScheduleResponseDto::getModifiedAt).reversed());
+//        // 수정일 기준 내림차순으로 정렬
+//        allSchedules.sort(Comparator.comparing(ScheduleResponseDto::getModifiedAt).reversed());
 
         return allSchedules;
     }

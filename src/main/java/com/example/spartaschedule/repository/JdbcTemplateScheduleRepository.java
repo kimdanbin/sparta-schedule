@@ -56,8 +56,16 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     // 전체 일정 조회
     @Override
-    public List<ScheduleResponseDto> findAllSchedules() {
-        return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+    public List<ScheduleResponseDto> findAllSchedules(String writer, boolean modifiedAtFilter) {
+        if (writer == null && !modifiedAtFilter) {
+            return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+        } else if (writer != null && !modifiedAtFilter) {
+            return jdbcTemplate.query("select * from schedule where writer = ?", scheduleRowMapper(), writer);
+        } else if (writer == null) {
+            return jdbcTemplate.query("select * from schedule order by modified_at desc", scheduleRowMapper());
+        } else {
+            return jdbcTemplate.query("select * from schedule where writer = ? order by modified_at desc", scheduleRowMapper(), writer);
+        }
     }
 
     // 선택 일정 조회
